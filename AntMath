@@ -1,1 +1,67 @@
-
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+int main()
+{
+ int qselect = 0;
+ double circle_x = 0.0;
+ double circle_y = 0.0;
+ double circle_radius = 0.0;
+ double point1x = 0.0;
+ double point1y = 0.0;
+ double point2x = 0.0;
+ double point2y = 0.0;
+ double gradient = 0.0;
+ double line_c = 0.0;
+ double a = 0.0;
+ double b = 0.0;
+ double c = 0.0;
+ double intersect1x = 0.0;
+ double intersect2x = 0.0;
+ double intersect1y = 0.0;
+ double intersect2y = 0.0;
+ int arbitrary = 0;
+ while (qselect == 0)
+ {
+    cout << endl << endl << endl <<  "    " << "Which problems do you want to solve?" << endl;
+    cout << endl << "    " << "1) Find the distance between the two intersections of a line and a circle" << endl << endl << "    ";
+    cin >> qselect;
+    switch (qselect)
+    {
+      case 1:
+      cout << endl << "    " << "enter the values of x[space]y at the centre of the circle" << endl << endl << "    ";
+      cin >> circle_x >> circle_y;
+      cout << endl << "    " << "enter the value of the radius of the circle" << endl << endl << "    ";
+      cin >> circle_radius;
+      cout << endl << "    " << "enter the value of x[space]y at the first point of the line" << endl << endl << "    ";
+      cin >> point1x >> point1y;
+      cout << endl << "    " << "enter the value of x[space]y at the second point of the line" << endl << endl << "    ";
+      cin >> point2x >> point2y;
+      gradient =  (point1y - point2y) / (point1x - point2x);
+      line_c =    point2y - ( gradient * point2x );
+      a =         gradient * gradient;
+      b =         (2 * gradient * line_c) - (2 * gradient * circle_y) - (2 * circle_x);
+      c =         circle_x + (line_c * line_c) - (2 * line_c * circle_y) + (circle_y * circle_y) - (circle_radius * circle_radius);
+      intersect1x = ( - b + sqrt((b * b) - (4 * a * c))) / (2 * a);
+      intersect2x = ( - b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+      intersect1y = gradient * intersect1x + line_c;
+      intersect2y = gradient * intersect2x + line_c;
+      // intersects = cl_intersection(c, l);
+      cout << endl << "    " <<  "Equation of the circle: (x - " << circle_x << ")^2" << " + (y - " << circle_y << ")^2 = (" << circle_radius << ")^2" << endl;
+      cout << endl << "    " <<  "Equation of the line: y = " << gradient << "x + " << line_c << endl;
+      cout << endl << "    " <<  "Coordinates of intersection: (" << intersect1x << "," << intersect1y << ") and (" << intersect2x << "," << intersect2y << ")" << endl;
+      cout << endl << "    " <<  "Distance between coordinates: " << sqrt((intersect1x - intersect2x) * (intersect1x - intersect2x) + (intersect1y - intersect2y) * (intersect1y - intersect2y)) << endl;
+      cout << endl << "    " <<  "type anything except space and press enter to exit" << endl << endl << "    ";
+      cin >> arbitrary;
+      break;
+      
+      default:
+      cout << endl << "    " <<  "invalid user input" << endl;
+      cout << endl << "    " <<  "input 0 to go back otherwise anything else to exit" << endl << "    ";
+      cin >> arbitrary;
+      break;
+    }
+ }
+ return 0;
+}
